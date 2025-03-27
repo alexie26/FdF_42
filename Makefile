@@ -13,16 +13,20 @@ OBJS = $(SRCS:.c=.o)
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 MLX_FLAGS = -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 
-all: MLX42 $(NAME)
+# Default target: ensures submodule is updated and the project is built
+all: submodule_update $(NAME)
 
 $(NAME): $(OBJS)
 	@make -C libft --silent
 	@make -C ft_printf --silent
 	@$(COMPILER) $(CFLAGS) -o $(NAME) $(OBJS) ./MLX42/build/libmlx42.a libft/libft.a ft_printf/libftprintf.a $(MLX_FLAGS)
 
-MLX42:
-	@if [ ! -d "MLX42" ]; then git clone https://github.com/codam-coding-college/MLX42.git; fi
-	@cd MLX42 && cmake -B build -DDEBUG=1 && cmake --build build -j4
+# Submodule update: initialize and update MLX42 submodule
+submodule_update:
+	@if [ ! -d "MLX42" ]; then \
+		git submodule update --init --recursive; \
+	fi
+	@cd MLX42 && git checkout MLX42 && cmake -B build -DDEBUG=1 && cmake --build build -j4
 
 clean:
 	@rm -f $(OBJS)
@@ -30,12 +34,8 @@ clean:
 	@cd libft && make fclean && cd ..
 
 fclean: clean
-	@rm -rf MLX42
 	@rm -f $(NAME)
-
-mlxclean:
-	@rm -rf MLX42
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re submodule_update
