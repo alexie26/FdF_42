@@ -3,8 +3,7 @@ NAME = fdf
 USER = $(shell whoami)
 OS = $(shell uname)
 
-SRCS_DIR = src
-SRCS =	main.c \
+SRCS =	main.c 	\
 
 
 COMPILER = cc
@@ -13,14 +12,14 @@ OBJS_DIR = objs/
 OBJS = $(SRCS:.c=.o)
 
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
-MLX_FLAGS = -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
+MLX_FLAGS = -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L
 
 all: MLX42 $(NAME)
 
 $(NAME): $(OBJS)
 	@make -C libft --silent
 	@make -C ft_printf --silent
-	@$(COMPILER) $(CFLAGS) -o $(NAME) $(OBJS) ./MLX42/build/libmlx42.a libft/libft.a ft_printf/libftprintf.a $(MLX_FLAGS)
+	@$(COMPILER) $(CFLAGS) -o $(NAME) $(OBJS) ./MLX42/build/libmlx42.a libft-42/libft.a ft_printf/libftprintf.a $(MLX_FLAGS)
 
 MLX42:
 	@if [ ! -d "MLX42" ]; then git clone https://github.com/codam-coding-college/MLX42.git; fi
