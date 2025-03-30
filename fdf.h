@@ -2,8 +2,8 @@
 # define FDF_H
 
 # include "MLX42/include/MLX42/MLX42.h"
-# include "printf42/ft_printf/ft_printf.h"
-# include "../libft-42/lol/libft.h"
+# include "printf42/ft_printf.h"
+# include "libft-42/libft.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
