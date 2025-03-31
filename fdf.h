@@ -13,7 +13,8 @@
 
 # define WIDTH 1980
 # define HEIGHT 1080
-
+# define INT_MAX
+# define INT_MIN
 
 typedef struct s_point3d
 {
@@ -54,6 +55,11 @@ typedef	struct s_map
 	double zoom;
 } t_map;
 
+typedef struct s_line_reader
+{
+	char *mapname;
+} t_line_reader;
+
 typedef	struct s_data
 {
 	t_line_reader line_reader;
@@ -61,10 +67,6 @@ typedef	struct s_data
 	
 }	t_data;
 
-typedef struct s_line_reader
-{
-	char *mapname;
-} t_line_reader;
 
 typedef struct s_fdf
 {
@@ -78,7 +80,21 @@ typedef struct s_fdf
 double	ft_atodbl(char *s);
 int	is_valid_number(const char *str);
 int	valid_file(const char *filename);
+int get_map_name(t_data *data, const char *mapname);
+
+void	set_defaults(t_map *map);
+
+//parsing
+void parse_fdf_file(t_map *map, const char *filename);
+void render_map(t_map *map, mlx_t *mlx, mlx_image_t *image);
+int	parse_line(t_map *map, char *line);
+int	parse_mapfile(t_map *map, const char *filename);
+
 
 //drawing line algorithm
+void	bresenham(mlx_image_t *image, t_point2d a, t_point3d b);
+
+
+int	main(int argc, char **argv);
 
 # endif

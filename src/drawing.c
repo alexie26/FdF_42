@@ -6,12 +6,12 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 17:03:02 by roalexan          #+#    #+#             */
-/*   Updated: 2025/03/30 17:03:04 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/03/31 16:20:52 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "fdf.h"
+#include "../fdf.h"
 
 void	bresenham(mlx_image_t *image, t_point2d a, t_point3d b)
 {
@@ -25,8 +25,8 @@ void	bresenham(mlx_image_t *image, t_point2d a, t_point3d b)
 	current.x = a.x;
 	current.y = a.y;
 	// diff between points
-	dx = abs(b.x - a.x);
-	dy = abs(b.y - a.y);
+	dx = fabs(b.x - a.x);
+	dy = fabs(b.y - a.y);
 
 	// step direction for x and y
 	if (a.x < b.x)

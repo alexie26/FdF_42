@@ -6,18 +6,18 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 17:03:08 by roalexan          #+#    #+#             */
-/*   Updated: 2025/03/30 17:03:10 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/03/31 16:22:15 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../fdf.h"
 
 void	set_defaults(t_map *map)
 {
 	map->row = 0;
 	map->col = 0;
-	map->high_z = INT_MIN;
-	map->low_z = INT_MAX;
+	map->high_z = INT_MIN
+	map->low_z = INT_MAX
 	map->x_shift = WIDTH / 2;
 	map->y_shift = HEIGHT / 2;
 	map->space = 1;

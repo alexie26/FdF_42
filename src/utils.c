@@ -6,11 +6,11 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 17:03:12 by roalexan          #+#    #+#             */
-/*   Updated: 2025/03/31 15:20:34 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/03/31 16:20:15 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../fdf.h"
 
 double	ft_atodbl(char *s)
 {
@@ -66,4 +66,3 @@ int	is_valid_number(const char *str)
 	return (has_digit);
 }
 
-void error(t_map *)

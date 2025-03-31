@@ -1,5 +1,5 @@
 
-#include "fdf.h"
+#include "../fdf.h"
 
 int	valid_file(const char *filename)
 {
@@ -12,7 +12,6 @@ int	valid_file(const char *filename)
 	}
 	close (fd);
 	return (1);
-		
 }
 
 int get_map_name(t_data *data, const char *mapname)
