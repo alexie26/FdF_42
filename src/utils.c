@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/30 17:03:12 by roalexan          #+#    #+#             */
+/*   Updated: 2025/03/31 15:20:34 by roalexan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "fdf.h"
 
@@ -55,12 +66,4 @@ int	is_valid_number(const char *str)
 	return (has_digit);
 }
 
-int	valid_file(const char *filename)
-{
-	int fd;
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-		perror("Error opening file");
-		return (0);
-		
-}
+void error(t_map *)

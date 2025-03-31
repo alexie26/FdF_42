@@ -4,6 +4,7 @@
 # include "MLX42/include/MLX42/MLX42.h"
 # include "printf42/ft_printf.h"
 # include "libft-42/libft.h"
+# include "getnextline42/get_next_line.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
@@ -47,11 +48,23 @@ typedef	struct s_map
 	double	yrotate;
 	double	zrotate;
 	//grid data
-	t_point3d **grid3d;
+	t_point3d **grid3d; //2D array of 3D points
 	t_point2d **grid2d;
 	// zoom
 	double zoom;
 } t_map;
+
+typedef	struct s_data
+{
+	t_line_reader line_reader;
+	int	fd;
+	
+}	t_data;
+
+typedef struct s_line_reader
+{
+	char *mapname;
+} t_line_reader;
 
 typedef struct s_fdf
 {
