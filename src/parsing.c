@@ -6,103 +6,71 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 20:00:51 by roalexan          #+#    #+#             */
-/*   Updated: 2025/03/31 18:57:27 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/02 21:12:20 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-int	parse_line(t_map *map, char *line)
+int	parse_color(char *tok, t_point3d *point)
 {
-	char **value;
+	int color;
+	(void)point;
+	// while (*token == '-')
+	// 		token++;
+	if (ft_strncmp(tok, "0x", 2) && ft_strncmp(tok, "0X", 2))
+			return(0xFFFFFFF);
+	tok += 2;
+	ft_striteri(tok, &make_upper);
+	color = ft_atoi_base(tok, 16);
+	return ((color << 8) | 0xFF);
+}
+void	parse_column(t_map *map, char **tab)
+{
+	int i = 0;
+	int j;
+	t_point3d point;
+
+	j = -1;
+	while(++j < map->col)
+	{
+		if (!ft_isdigit(*tab[j] && *tab[j] != '-'))
+		{
+			handle_error(3);
+		}
+		// point  = &(map->grid2d[i][j]);
+		point.x = j * map->space - map->x_shift;
+		point.y = i * map->space - map->y_shift;
+		point.z = ft_atoi(tab[j]) * map->space;
+
+		map->high_z = ft_max(map->high_z, point.z);
+		map->low_z = ft_min(map->low_z, point.z);
+
+		point.mapcolor = parse_color(tab[j], &point);
+	}
+}
+
+void	parse_lines(int **row, char *str)
+{
+	char **split;
+	int len;
 	int i;
 
 	i = 0;
-	value = ft_split(line, ' ');
-	if (!value)
-		return (1);
-	while (value[map->col] != NULL)
-		map->col++;
-	map->grid3d[map->row] = malloc(sizeof(t_point3d) * map->col);
-	if (!map->grid3d[map->row])
+	split = ft_split(str, ' ');
+	if (!split)
+		return ;
+	len = file_lenght(split);
+	*row = (int *)ft_calloc(len, sizeof(int));
+	if (!row)
 	{
-		perror("Error allocating memory for grid3d row");
-		return (1);
+		ft_free_split(&split);
+		handle_error(-1);
 	}
-	while (i < map->col) //value into int and store them in grid3d
+	while (split[i] && i < len)
 	{
-		map->grid3d[map->row][i].z = ft_atoi(value[i]); //convert to int;
-		map->grid3d[map->row][i].x = i;
-		map->grid3d[map->row][i].y = map->row;
-		if (map->row == 0 && i == 0)
-		{
-			map->high_z = map->grid3d[map->row][i].z;
-			map->low_z = map->grid3d[map->row][i].z;
-		}
-		else
-		{
-			if (map->grid3d[map->row][i].z > map->high_z)
-				map->high_z = map->grid3d[map->row][i].z;
-			if (map->grid3d[map->row][i].z < map->low_z)
-				map->low_z = map->grid3d[map->row][i].z;
-		}
-		i++;
+		(*row)[i] = ft_atoi(split[i]);
+		++i;
 	}
-	while (value[i] != NULL)
-		free(value[i]);
-	free(value);
-	return (0);
-}
-
-int	parse_mapfile(t_map *map, const char *filename)
-{
-	int fd;
-	char *line;
-	int row;
-
-	row = 0;
-	valid_file(filename);
-	fd = open(filename, O_RDONLY);
-	line = get_next_line(fd);
-	while ((line != NULL))
-	{
-		if (row == 0)
-		{
-			map->grid3d = malloc(sizeof(t_point3d) * 1000); //1000 rows;
-			if (!map->grid3d)
-			{
-				perror("Error allocating memory for grid3d");
-				free(line);
-				close(fd);
-				return (1);
-			}
-		}
-		if (parse_line(map, line) != 0)
-		{
-			free(line);
-			close(fd);
-			return (1);
-		}
-		free(line);
-		line = get_next_line(fd);
-		row++;
-	}
-	close(fd);
-	map->row = row;
-	return (0);
-}
-
-void parse_fdf_file(t_map *map, const char *filename)
-{
-    if (!valid_file(filename))
-    {
-        ft_printf("Invalid file or file cannot be opened.\n");
-        exit(EXIT_FAILURE);
-    }
-    set_defaults(map);
-    if (parse_mapfile(map, filename) != 0)
-    {
-        ft_printf("Error parsing the map file.\n");
-        exit(EXIT_FAILURE);
-    }
+	ft_free_split(&split);
 }

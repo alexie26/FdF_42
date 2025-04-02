@@ -12,6 +12,7 @@ SRCS = getnextline42/get_next_line.c \
        src/parsing.c \
        src/utils.c \
 	   src/render.c \
+	   src/error_utils.c \
 
 
 COMPILER = cc

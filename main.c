@@ -1,75 +1,55 @@
 
 #include "fdf.h"
 
-
-#include "fdf.h"
-
-int main(int argc, char **argv)
+static int window(char *filename)
 {
     t_fdf *fdf;
-
-    // Check for correct number of arguments
-    if (argc != 2)
-    {
-        ft_printf("Usage: ./fdf <map_file.fdf>\n");
-        return (1);
-    }
-	// if (argv 2, last char != f && last char - 1 != d && last char - 2 not f && last char - 3 != .)
-    // Allocate memory for the main structure
+    // Initialize a new fdf structure
     fdf = malloc(sizeof(t_fdf));
     if (!fdf)
     {
-        perror("Error allocating memory for fdf");
+        perror("Failed to allocate memory for fdf structure");
         return (1);
     }
-
-    // Allocate memory for the map structure
-    fdf->map = malloc(sizeof(t_map));
-    if (!fdf->map)
-    {
-        perror("Error allocating memory for map");
-        free(fdf);
-        return (1);
-    }
-
-    // Parse the .fdf file
-    parse_fdf_file(fdf->map, argv[1]);
-
-    // Initialize MLX42
-    fdf->mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
-    if (!fdf->mlx)
-    {
-        ft_printf("Error: Failed to initialize MLX42.\n");
-        free(fdf->map);
-        free(fdf);
-        return (1);
-    }
-
-    // Create an image for rendering
+    // Create a new window
+    fdf->mlx = mlx_init(WIDTH, HEIGHT, filename, false);
+    // Create a new image
     fdf->image = mlx_new_image(fdf->mlx, WIDTH, HEIGHT);
     if (!fdf->image)
     {
-        ft_printf("Error: Failed to create MLX42 image.\n");
-        mlx_terminate(fdf->mlx);
-        free(fdf->map);
-        free(fdf);
+        perror("Failed to create image");
         return (1);
     }
-
-    // Render the map
-    render_map(fdf->map, fdf->mlx, fdf->image);
-
-    // Display the image
+    // Add the image to the window
     mlx_image_to_window(fdf->mlx, fdf->image, 0, 0);
-
-    // Start the MLX42 event loop
+    // Handle events (for example, keypress or window close)
+	t_point2d a;
+	t_point3d b;
+	a.x = 20;
+	a.y = 20;
+	b.x = 1000;
+	b.y = 2000;
+	bresenham(fdf->image, a, b);
     mlx_loop(fdf->mlx);
-
-    // Cleanup
-    mlx_delete_image(fdf->mlx, fdf->image);
-    mlx_terminate(fdf->mlx);
-    free(fdf->map);
+    // Free the allocated memory before exit
     free(fdf);
+    return (0);
+}
 
+int	main (int argc, char **argv)
+{
+	if (argc != 2)
+    {
+        // Display an error message if the wrong number of arguments are passed
+        printf("Usage: ./fdf <mapfile.fdf>\n");
+        return (1);
+    }
+    // Initialize the window with the given filename (the map)
+    if (window(argv[1]) != 0)
+    {
+        // If window creation fails, print an error and return
+        printf("Failed to create the window.\n");
+        return (1);
+    }
     return (0);
 }

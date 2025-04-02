@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:53:16 by roalexan          #+#    #+#             */
-/*   Updated: 2024/12/07 18:35:22 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/02 20:41:33 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,30 +112,30 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-int	main(void)
-{
-	int		fd;
-	char	*line;
-	int		i;
+// int	main(void)
+// {
+// 	int		fd;
+// 	char	*line;
+// 	int		i;
 
-	i = 0;
-	// atexit(leaks);
-	fd = open("text.txt", O_RDONLY);
-	// if (fd < 0)
-	// {
-	//     perror("Error opening file");
-	//     return (1);
-	// }
-	while ((line = get_next_line(fd)) != NULL)
-	{
-		if (line == NULL)
-		{
-			printf("NULL\n");
-		}
-		printf("%s", line);
-		free(line);
-		i++;
-	}
-	close(fd);
-	return (0);
-}
+// 	i = 0;
+// 	// atexit(leaks);
+// 	fd = open("text.txt", O_RDONLY);
+// 	// if (fd < 0)
+// 	// {
+// 	//     perror("Error opening file");
+// 	//     return (1);
+// 	// }
+// 	while ((line = get_next_line(fd)) != NULL)
+// 	{
+// 		if (line == NULL)
+// 		{
+// 			printf("NULL\n");
+// 		}
+// 		printf("%s", line);
+// 		free(line);
+// 		i++;
+// 	}
+// 	close(fd);
+// 	return (0);
+// }
