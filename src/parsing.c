@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 20:00:51 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/02 21:12:20 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/03 22:23:10 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	parse_column(t_map *map, char **tab)
 	j = -1;
 	while(++j < map->col)
 	{
-		if (!ft_isdigit(*tab[j] && *tab[j] != '-'))
+		if (!ft_isdigit(*tab[j]) && *tab[j] != '-')
 		{
 			handle_error(3);
 		}
@@ -60,11 +60,11 @@ void	parse_lines(int **row, char *str)
 	split = ft_split(str, ' ');
 	if (!split)
 		return ;
-	len = file_lenght(split);
+	len = file_lenght(*split);
 	*row = (int *)ft_calloc(len, sizeof(int));
-	if (!row)
+	if (!*row)
 	{
-		ft_free_split(&split);
+		ft_free_split(split, sizeof(split));
 		handle_error(-1);
 	}
 	while (split[i] && i < len)
@@ -72,5 +72,7 @@ void	parse_lines(int **row, char *str)
 		(*row)[i] = ft_atoi(split[i]);
 		++i;
 	}
-	ft_free_split(&split);
+	ft_free_split(split, sizeof(split));
 }
+
+

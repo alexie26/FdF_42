@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 17:03:02 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/02 20:33:55 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/03 20:30:55 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,3 @@ void	bresenham(mlx_image_t *image, t_point2d a, t_point3d b)
 	draw_line(image, &bre, current, b);
 }
 
-// When the error term is large in the x-direction,
-// the algorithm moves in the x-direction.
-// When the error term is large in the y-direction,
-// the algorithm moves in the y-direction.
