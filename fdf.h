@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 20:27:04 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/02 21:10:32 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/06 16:04:19 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,18 +111,30 @@ int get_map_name(t_data *data, const char *mapname);
 //init
 void	set_defaults(t_map *map);
 
-//parsing
+//parsing utils
 int	parse_color(char *tok, t_point3d *point);
+void	process_line(t_map *map, char *line, int row_indx);
+//parsing
 void	parse_column(t_map *map, char **tab);
+void	parse_lines(int **row, char *str);
+void	parse_map(t_map *map, char *filename);
+
 
 //error
 void	ft_free_tab(void **tab, size_t len);
 void	free_map(t_map *map);
 void	handle_error(int status);
 void	*ft_free_split(char **strs, int count);
+void	free_grid2d(t_map *map, int row_allocated);
 
+//hooks
+void	ft_hook(void *param);
+
+//render
+void	draw_map(t_fdf *fdf);
 
 //drawing line algorithm
+void	project_2d(t_map *map);
 void	bresenham(mlx_image_t *image, t_point2d a, t_point3d b);
 
 int	main(int argc, char **argv);

@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 17:03:08 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/02 20:34:20 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/06 16:27:00 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	set_defaults(t_map *map)
 	map->low_z = INT_MAX;
 	map->x_shift = WIDTH / 2;
 	map->y_shift = HEIGHT / 2;
-	map->space = 1;
+	map->space = 20;
 	map->zoom = 1;
 	map->xrotate = 0;
 	map->yrotate = 0;

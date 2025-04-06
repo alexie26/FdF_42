@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 19:51:24 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/02 21:10:11 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:42:22 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,17 @@ void	free_map(t_map *map)
 	ft_free_tab((void **)map->grid2d, map->row);
 	ft_free_tab((void **)map->grid3d, map->row);
 	free(map);
+}
+void	free_grid2d(t_map *map, int row_allocated)
+{
+	int i;
+
+	i = 0;
+	while (i < row_allocated)
+	{
+		free(map->grid2d[i]);
+	}
+	free(map->grid2d);
 }
 
 void	handle_error(int status)
