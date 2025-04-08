@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:51 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/08 12:42:39 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/08 12:56:40 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	calc_dot_dist_x(t_fdf *fdf)
 	int distance;
 
 	amount = fdf->three_d[0][0].size;
-	distance = (WIDTH - 50) / amount;
+	distance = (WIDTH + 50) / amount;
 	return (distance);
 }
 
