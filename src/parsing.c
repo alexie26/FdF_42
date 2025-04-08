@@ -6,99 +6,110 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 20:00:51 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/06 16:23:56 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/08 10:48:44 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-void	parse_column(t_map *map, char **tab)
+int	check_for_comma(char *line)
 {
-	int i = 0;
-	int j;
-	t_point3d point;
-
-	j = -1;
-	while(++j < map->col)
-	{
-		if (!ft_isdigit(*tab[j]) && *tab[j] != '-')
-		{
-			handle_error(3);
-		}
-		point.x = j * map->space - map->x_shift;
-		point.y = i * map->space - map->y_shift;
-		point.z = ft_atoi(tab[j]) * map->space;
-
-		map->high_z = ft_max(map->high_z, point.z);
-		map->low_z = ft_min(map->low_z, point.z);
-
-		point.mapcolor = parse_color(tab[j], &point);
-	}
-}
-
-void	parse_lines(int **row, char *str)
-{
-	char **split;
-	int len;
-	int i;
-
-	i = 0;
-	split = ft_split(str, ' ');
-	if (!split)
-		return ;
-	len = file_lenght(*split);
-	*row = (int *)ft_calloc(len, sizeof(int));
-	if (!*row)
-	{
-		ft_free_split(split, sizeof(split));
-		handle_error(-1);
-	}
-	while (split[i] && i < len)
-	{
-		(*row)[i] = ft_atoi(split[i]);
-		++i;
-	}
-	ft_free_split(split, sizeof(split));
-}
-
-static void	allocate_grid2d(t_map *map)
-{
-	int i = 0;
-	map->grid2d = (t_point2d **)malloc(sizeof(t_point2d *) * map->row);
-	if (!map->grid2d)
-		handle_error(-1);
-	while (i < map->row)
-	{
-		map->grid2d[i] = (t_point2d *)malloc(sizeof(t_point2d) * map->col);
-		if (!map->grid2d[i])
-			handle_error(-1);
-		i++;
-	}
-}
-
-void	parse_map(t_map *map, char *filename)
-{
-	int	fd;
-	char *line;
 	int	i;
 
 	i = 0;
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-		handle_error(1);
-	allocate_grid2d(map);
-	line = get_next_line(fd);
-	while (line != NULL)
+	printf("%s\n", line);
+	while (line[i])
 	{
-		process_line(map, line, i);
 		i++;
-		line = get_next_line(fd);
+		if (line[i] == ',')
+				return (1);
 	}
-	if (i < map->row)
+	return (0);
+}
+
+int get_size(char **array)
+{
+	int	count;
+	count = 0;
+	while (array && array[count])
+			count++;
+	return (count);
+}
+
+t_3d	*special_split(t_3d *fdf, char *line, int row)
+{
+	char **split;
+	char **dif_split;
+	int	i;
+	
+	split = ft_split(line, ' ');
+	i = 0;
+	while (split[i])
 	{
-		free_map(map);
-		handle_error(1);
+		if (check_for_comma(split[i]) == 1)
+		{
+			dif_split = ft_split(split[i], ',');
+			fdf[i].x = i;
+			fdf[i].y = row;
+			fdf[i].z = ft_atoi(dif_split[0]);
+			fdf[i].color_val = ft_atoi(dif_split[1]);
+			fdf[i].size = get_size(split);
+			free(dif_split[0]);
+			free(dif_split[1]);
+			free(dif_split);
+ 		}
+		else if (check_for_comma(split[i]) == 0)
+		{
+			fdf[i].x = i;
+			fdf[i].y = row;
+			fdf[i].z = ft_atoi(split[i]);
+			fdf[i].color_val = 0xFF0000;
+			fdf[i].size = get_size(split);
+		}
+		free(split[i]);
+		i++;
+		if (split[i] == NULL)
+			break ;
 	}
-	project_2d(map);
-	close (fd);
+	free(split);
+	return (fdf);
+}
+
+int get_rows(char *file)
+{
+	int fd = open(file, O_RDONLY);
+	char *line = get_next_line(fd);
+	int i = 0;
+	while(line)
+	{
+		free(line);
+		line = get_next_line(fd);
+		i++;
+	}
+	free(line);
+	close(fd);
+	return (i);
+}
+
+t_fdf	*parse(char *filename)
+{
+	// remove("fdf_log.txt");
+	int row = get_rows(filename);
+	t_fdf *fdf = malloc(sizeof(t_fdf));
+	fdf->three_d = malloc(sizeof(t_3d) * row);
+	for(int i = 0; i < row; i++)
+		fdf->three_d[i] = malloc(sizeof(t_3d) * MAX_WIDTH);
+	int fd = open(filename, O_RDONLY);
+	char *line = get_next_line(fd);
+	int i = 0;
+	while(i < row && line)
+	{
+		fdf->three_d[i] = special_split(fdf->three_d[i], line, i);
+		free(line);
+		line = get_next_line(fd);
+		i++;
+	}
+	free(line);
+	fdf->rows = row;
+	return (fdf);
 }

@@ -6,40 +6,12 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 17:03:12 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/02 18:28:15 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/08 10:37:14 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-// double	ft_atodbl(char *s)
-// {
-// 	long	integer;
-// 	double	fraction;
-// 	double	pow;
-// 	int		sign;
-
-// 	integer = 0;
-// 	fraction = 0;
-// 	sign = +1;
-// 	pow = 1;
-// 	while ((*s == 9 && *s <= 13) || *s == 32)
-// 		s++;
-// 	while (*s == '+' || *s == '-')
-// 		if (*s++ == '-')
-// 			sign = -sign;
-// 	while (*s != '.' && *s)
-// 		integer = (integer * 10) + (*s++ - 48);
-// 	if (*s == '.')
-// 		s++;
-// 	while (*s)
-// 	{
-// 		pow /= 10;
-// 		fraction = fraction + (*s++ - 48) * pow;
-// 	}
-// 	return ((integer + fraction) * sign);
-// }
-// check  if string is a valid number (int or float)
 int	is_valid_number(const char *str)
 {
 	int		i;
@@ -64,26 +36,4 @@ int	is_valid_number(const char *str)
 		i++;
 	}
 	return (has_digit);
-}
-
-void	make_upper(unsigned int i, char *c)
-{
-	i++;
-	*c = ft_toupper(*c);
-}
-
-int	ft_max(int a, int b)
-{
-	if (a > b)
-		return (a);
-	else
-		return (b);
-}
-
-int	ft_min(int a, int b)
-{
-	if (a < b)
-		return (a);
-	else
-		return (b);
 }

@@ -6,14 +6,10 @@ OS = $(shell uname)
 SRCS = getnextline42/get_next_line.c \
        getnextline42/get_next_line_utils.c \
        main.c \
-       src/reading.c \
-       src/drawing.c \
-       src/init.c \
        src/parsing.c \
        src/utils.c \
 	   src/render.c \
 	   src/error_utils.c \
-	   src/parsing_utils.c \
 	   src/hooks.c 		\
 
 
