@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:51 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/08 12:12:59 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/08 12:42:39 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	calc_dot_dist_y(t_fdf *fdf)
 
 void	draw_squares(t_fdf *fdf, int x, int y, int color)
 {
-	int	i;
-	int	j;
+	int	i = 0;
+	int	j = 0;
 	while(i < 9)
 	{
 		i++;
