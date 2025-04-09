@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 20:27:04 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/08 12:28:48 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/08 20:18:31 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,24 @@ typedef struct	s_fdf
 }				t_fdf;
 
 t_fdf			*parse(char *filename);
-void			pretty_background(t_fdf *fdf);
+// void			pretty_background(t_fdf *fdf);
+int	check_for_comma(char *line);
+int get_size(char **array);
+t_3d	*special_split(t_3d *fdf, char *line, int row);
+int get_rows(char *file);
+t_fdf	*parse(char *filename);
+
+int	calc_dot_dist_x(t_fdf *fdf);
+int	calc_dot_dist_y(t_fdf *fdf);
+void	draw_squares(t_fdf *fdf, int x, int y, int color);
+void	draw_dots(t_fdf *fdf, int dist_x, int dist_y);
 int				render_map(t_fdf *fdf);
+
+
 void			clean_exit(t_fdf *fdf, int row);
 void			ft_loop_hook(void *param);
+
+int main(int argc, char *argv[]);
+
 
 # endif

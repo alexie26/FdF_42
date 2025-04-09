@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:51 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/08 12:56:40 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/08 20:30:57 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	calc_dot_dist_x(t_fdf *fdf)
 	int distance;
 
 	amount = fdf->three_d[0][0].size;
-	distance = (WIDTH + 50) / amount;
+	distance = (WIDTH - 50) / amount;
 	return (distance);
 }
 
@@ -61,9 +61,9 @@ void	draw_dots(t_fdf *fdf, int dist_x, int dist_y)
 	j = 0;
 	x = 50;
 	y = 50;
-	while (x < fdf->mlx->height - 50)
+	while (x < fdf->mlx->width - 50)
 	{
-		while(y < fdf->mlx->width - 50)
+		while(y < fdf->mlx->height - 50)
 		{
 			if (j > fdf->three_d[0][0].size)
 			{
@@ -71,12 +71,15 @@ void	draw_dots(t_fdf *fdf, int dist_x, int dist_y)
 				i++;
 			}
 			if (y % dist_y == 0 || x % dist_x == 0)
-				mlx_put_pixel(fdf->image, x, y, 0xfffffff);
+				mlx_put_pixel(fdf->image, x, y, 0xffc1cbff);
 			if (y % dist_y == 0 && x % dist_x == 0)
 			{
 				mlx_put_pixel(fdf->image, x, y, fdf->three_d[i][j].color_val);
 			}
+			y++;
 		}
+		y = 50;
+		x++;
 	}
 }
 

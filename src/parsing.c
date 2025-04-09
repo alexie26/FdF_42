@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 20:00:51 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/08 10:48:44 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/08 20:21:10 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	check_for_comma(char *line)
 	printf("%s\n", line);
 	while (line[i])
 	{
-		i++;
 		if (line[i] == ',')
-				return (1);
+			return (1);
+		i++;
 	}
 	return (0);
 }
@@ -102,7 +102,7 @@ t_fdf	*parse(char *filename)
 	int fd = open(filename, O_RDONLY);
 	char *line = get_next_line(fd);
 	int i = 0;
-	while(i < row && line)
+	while(i < row && line != NULL)
 	{
 		fdf->three_d[i] = special_split(fdf->three_d[i], line, i);
 		free(line);
