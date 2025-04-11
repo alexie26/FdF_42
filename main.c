@@ -6,6 +6,14 @@
 // 	system("leaks fdf");
 // }
 
+void	ft_hook(void *param)
+{
+	ft_loop_hook(param);
+	// ft_scrollhook(param);
+	ft_hook_rotate(param); 
+	render_map((t_fdf *)param);
+}
+
 int main(int argc, char *argv[])
 {
 	if (argc != 2)
@@ -16,7 +24,8 @@ int main(int argc, char *argv[])
 	mlx_image_to_window(fdf->mlx, fdf->image, 0, 0);
 	// pretty_background(fdf);
 	render_map(fdf);
-	mlx_loop_hook(fdf->mlx, &ft_loop_hook, fdf);
+	mlx_scroll_hook(fdf->mlx, &fdf_scrollhook, fdf);
+	mlx_loop_hook(fdf->mlx, &ft_hook, fdf);  
 	mlx_loop(fdf->mlx);
 	return (0);
 }

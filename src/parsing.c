@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 20:00:51 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/09 15:13:26 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/11 10:18:29 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_3d *special_split(t_3d *fdf, char *line, int row)
 			fdf[i].x = i;
 			fdf[i].y = row;
 			fdf[i].z = ft_atoi(split[i]);
-			fdf[i].color_val = 0xFF0000;
+			fdf[i].color_val = 0xe5ccffff;
 			fdf[i].size = get_size(split);
 		}
 		free(split[i]);

@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:51 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/09 20:54:32 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:59:38 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	init(t_fdf *fdf)
     int		map_height;
 
     // Set zoom and z_scale
-    fdf->zoom = 4;
-    fdf->z_scale = 2;
+    fdf->zoom = 19;
+    fdf->z_scale = 9;
 
     // Calculate map dimensions in isometric projection
     map_width = (fdf->three_d[0][0].size - 1) * fdf->zoom * cos_30;
@@ -30,6 +30,7 @@ void	init(t_fdf *fdf)
     // Center the map in the window
     fdf->x_offset = (WIDTH - map_width) / 2;
     fdf->y_offset = (HEIGHT - map_height) / 2;
+	// fdf->mlx = mlx_init();
 }
 int	calc_dot_dist_x(t_fdf *fdf)
 {
@@ -66,8 +67,6 @@ void	draw_squares(t_fdf *fdf, int x, int y, int color)
 	}
 }
 
-
-
 t_point project_isometric(t_3d pt, t_fdf *fdf)
 {
     t_point projected;
@@ -75,6 +74,11 @@ t_point project_isometric(t_3d pt, t_fdf *fdf)
     double x = pt.x * fdf->zoom;
     double y = pt.y * fdf->zoom;
     double z = pt.z * fdf->z_scale;
+
+    // Apply rotations (updated to match function signatures)
+    rotate_x(&y, &z, fdf->xrotate);
+    rotate_y(&x, &z, fdf->yrotate);
+    rotate_z(&x, &y, fdf->zrotate);
 
     double cos_30 = cos(PI / 6);  
     double sin_30 = sin(PI / 6);  
@@ -88,6 +92,26 @@ t_point project_isometric(t_3d pt, t_fdf *fdf)
 
     return projected;
 }
+// t_point project_isometric(t_3d pt, t_fdf *fdf)
+// {
+//     t_point projected;
+
+//     double x = pt.x * fdf->zoom;
+//     double y = pt.y * fdf->zoom;
+//     double z = pt.z * fdf->z_scale;
+
+//     double cos_30 = cos(PI / 6);  
+//     double sin_30 = sin(PI / 6);  
+
+//     // Apply isometric projection
+//     projected.x = (int)((x - y) * cos_30) + fdf->x_offset;
+//     projected.y = (int)((x + y) * sin_30 - z) + fdf->y_offset;
+
+//     // Print for debugging (optional)
+//     // printf("Projected point: (%d, %d)\n", projected.x, projected.y);
+
+//     return projected;
+// }
 
 void	draw_dots(t_fdf *fdf, int dist_x, int dist_y)
 {
@@ -137,7 +161,7 @@ void	draw_line(t_fdf *fdf, t_point p1, t_point p2, int color)
 	while (1)
 	{
 		if (p1.x >= 0 && p1.x < fdf->mlx->width && p1.y >= 0 && p1.y < fdf->mlx->height)
-			mlx_put_pixel(fdf->image, p1.x, p1.y, 0xffffffff);
+			mlx_put_pixel(fdf->image, p1.x, p1.y, 0xe5ccffff);
 		if (p1.x == p2.x && p1.y == p2.y)
 			break;
 		e2 = 2 * err;
@@ -162,10 +186,7 @@ int		render_map(t_fdf *fdf)
 
 	x_dist = calc_dot_dist_x(fdf);
 	y_dist = calc_dot_dist_y(fdf);
-	fdf->image = mlx_new_image(fdf->mlx, WIDTH, HEIGHT);
-	mlx_image_to_window(fdf->mlx, fdf->image, 0, 0);
-
-		draw_dots(fdf, x_dist, y_dist);
+	draw_dots(fdf, x_dist, y_dist);
 	//connnect dots
 	return (1);
 }

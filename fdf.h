@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 20:27:04 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/09 20:55:50 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:46:01 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ typedef struct	s_fdf
 	int			z_scale;
 	int			x_offset;
 	int			y_offset;
+	double		xrotate;
+	double		yrotate;
+	double		zrotate;
 	t_3d		**three_d;
 	mlx_t		*mlx;
 	mlx_image_t	*image;
@@ -76,8 +79,16 @@ t_point project_isometric(t_3d pt, t_fdf *fdf);
 
 void			clean_exit(t_fdf *fdf, int row);
 void			ft_loop_hook(void *param);
-void key_hook(mlx_key_data_t keydata, void *param);
+// void key_hook(mlx_key_data_t keydata, void *param);
+void	fdf_scrollhook(double xdelta, double ydelta, void *param);
+void	ft_hook_rotate(void *param);
 
+
+void	rotate_x(double *y, double *z, double alpha);
+void	rotate_y(double *x, double *z, double beta);
+void	rotate_z(double *x, double *y, double gamma);
+
+void	ft_loop_hook(void *param);
 
 int main(int argc, char *argv[]);
 
