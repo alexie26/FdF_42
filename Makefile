@@ -7,7 +7,10 @@ SRCS = getnextline42/get_next_line.c \
        getnextline42/get_next_line_utils.c \
        main.c \
        src/parsing.c \
+	   src/parsing_utils.c \
 	   src/render.c \
+	   src/render2.c \
+	    src/render_utils.c \
 	   src/error_utils.c \
 	   src/hooks.c 		\
 
