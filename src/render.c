@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:51 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/12 21:39:15 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/13 16:42:09 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	draw_dots(t_fdf *fdf, int dist_x, int dist_y)
 	i = 0;
 	(void)dist_x;
 	(void)dist_y;
-	ft_init(fdf);
 	while (i < fdf->rows)
 	{
 		j = 0;
@@ -92,8 +91,10 @@ void	draw_line(t_fdf *fdf, t_point p1, t_point p2, int color)
 	while (1)
 	{
 		if (p1.x >= 0 && p1.x < fdf->mlx->width && p1.y >= 0 && p1.y < fdf->mlx->height)
+		{
 			mlx_put_pixel(fdf->image, p1.x, p1.y, color);
 			printf("Drawing pixel at (%d, %d)\n", p1.x, p1.y);
+		}
 		if (p1.x == p2.x && p1.y == p2.y)
 			break ;
 		update_line(&p1, &line);

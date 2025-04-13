@@ -21,8 +21,8 @@ void	ft_init(t_fdf *fdf)
 	top_left = project_isometric(fdf->three_d[0][0], fdf);
 	bottom_right = project_isometric(fdf->three_d[fdf->rows - 1][fdf->three_d[0][0].size - 1], fdf);
 
-	fdf->x_offset = (WIDTH - (bottom_right.x - top_left.x) / 2);
-	fdf->y_offset = (HEIGHT - (bottom_right.y - top_left.y) / 2);
+	fdf->x_offset = WIDTH / 2;
+	fdf->y_offset = HEIGHT / 2;
 }
 
 void	ft_hook(void *param)
@@ -59,6 +59,7 @@ int main(int argc, char *argv[])
     }
 
     t_fdf *fdf = parse(argv[1]);
+	ft_init(fdf);
     if (!fdf || !fdf->three_d || fdf->rows <= 0)
     {
         ft_putstr_fd("Error: Failed to parse the map file.\n", 2);

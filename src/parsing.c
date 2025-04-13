@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 20:00:51 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/12 21:33:20 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/13 16:51:59 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,15 @@ t_fdf	*parse(char *filename)
 	row = get_rows(filename);
 	if (row == 0)
 	{
-    ft_putstr_fd("Error: Map has no rows.\n", 2);
-    return (NULL);
+  	  ft_putstr_fd("Error: Map has no rows.\n", 2);
+  	  return (NULL);
 	}
 	fdf = malloc(sizeof(t_fdf));
 	fdf->three_d = malloc(sizeof(t_3d *) * row);
 	get_line_size_malloc(fdf, filename);
 	fd = open(filename, O_RDONLY);
 	line = get_next_line(fd);
+	fdf->rows = row;
 	i = 0;
 	while (i < row && line != NULL)
 	{
@@ -95,7 +96,7 @@ t_fdf	*parse(char *filename)
 		line = get_next_line(fd);
 		i++;
 	}
+	close(fd);
 	free(line);
-	fdf->rows = row;
 	return (fdf);
 }

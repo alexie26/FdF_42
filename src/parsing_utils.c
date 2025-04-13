@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 14:00:01 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/12 21:35:15 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/13 16:52:30 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,14 +103,18 @@ void	get_line_size_malloc(t_fdf *fdf, char *filename)
 	fd = open(filename, O_RDONLY);
 	line = get_next_line(fd);
 	i = 0;
-	fdf->three_d = malloc(sizeof(t_3d) * 55);
+	int k = 0;
 	while (line)
 	{
-		fdf->three_d[i] = malloc(sizeof(t_3d) * 555);
-		fdf->three_d[i]->size = get_line_size(line);
+		printf("getlinesizeandmalloc:\t\t%d\n", k);
+		k++;
+		int size = get_line_size(line);
+		fdf->three_d[i] = malloc(sizeof(t_3d) * size);
+		fdf->three_d[i]->size = size;
 		i++;
 		free(line);
 		line = get_next_line(fd);
 	}
+	close(fd);
 	free(line);
 }
