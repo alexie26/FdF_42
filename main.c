@@ -6,17 +6,17 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:01:32 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/14 16:16:53 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/14 18:41:59 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "fdf.h"
 
-void leaks(void)
-{
-	system("leaks fdf");
-}
+// void leaks(void)
+// {
+// 	system("leaks fdf");
+// }
 
 static char	**expand_lines_array(char **old, int *capacity)
 {
@@ -69,7 +69,7 @@ char	**read_file_lines(char *filename, int *out_row)
 
 void	ft_init(t_fdf *fdf)
 {
-	fdf->zoom = 1;
+	fdf->zoom = -9;
 	fdf->z_scale = 1;
 	fdf->xrotate = 0;
 	fdf->yrotate = 0;
@@ -98,7 +98,7 @@ int	main(int argc, char *argv[])
 {
 	t_fdf	*fdf;
 
-	atexit(leaks);
+	// atexit(leaks);
 	if (argc != 2)
 	{
 		ft_putstr_fd("Usage: ./fdf <map_file>\n", 2);

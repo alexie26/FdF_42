@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 20:00:51 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/14 15:58:30 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:13:24 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ t_3d	*special_split(t_3d *fdf, char *line, int row)
 			handle_comma_case(fdf, split[i], i, row);
 		else
 			handle_no_comma(fdf, split[i], i, row);
+		free(split[i]);
 		i++;
 	}
 	free(split);
@@ -68,6 +69,7 @@ t_fdf	*parse(char *filename)
 	char	*line;
 	int		size;
 	t_fdf	*fdf;
+	char	**freesplit;
 
 	row = get_rows(filename);
 	if (row == 0)
@@ -81,7 +83,9 @@ t_fdf	*parse(char *filename)
 	i = 0;
 	while (i < row && line != NULL)
 	{
-		size = get_size(ft_split(line, ' '));
+		freesplit = ft_split(line, ' ');
+		size = get_size(freesplit);
+		free_split(freesplit);
 		fdf->three_d[i] = malloc(sizeof(t_3d) * size);
 		fdf->three_d[i] = special_split(fdf->three_d[i], line, i);
 		free(line);

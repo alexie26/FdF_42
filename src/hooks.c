@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 17:32:05 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/14 16:09:27 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/14 18:30:38 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,37 +15,38 @@
 void	ft_loop_hook(void *param)
 {
 	t_fdf	*fdf;
+	int		speed;
 
 	fdf = param;
+	if (fdf->zoom >= 0)
+		speed = fdf->zoom;
+	else
+		speed = fdf->zoom * -1;
+	// printf("speed%d\n", speed);
+	if (speed > 25)
+		speed = 25;
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_ESCAPE) == true)
 		clean_exit(fdf, fdf->rows);
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_LEFT))
 	{
 		fdf->zoom--;
 		fdf->z_scale--;
+		if (fdf->z_scale < 1)
+			fdf->z_scale = 1;
 	}
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_RIGHT))
 	{
 		fdf->zoom++;
 		fdf->z_scale++ ;
 	}
-}
-
-void key_hook(mlx_key_data_t keydata, void *param)
-{
-    t_fdf *fdf = (t_fdf *)param;
-
-    if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)
-    {
-        if (keydata.key == MLX_KEY_UP)
-            fdf->y_offset -= 5; // Move map up
-        else if (keydata.key == MLX_KEY_DOWN)
-            fdf->y_offset += 5; // Move map down
-        else if (keydata.key == MLX_KEY_LEFT)
-            fdf->x_offset -= 5; // Move map left
-        else if (keydata.key == MLX_KEY_RIGHT)
-            fdf->x_offset += 5; // Move map right
-    }
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_A))
+		fdf->x_offset -= speed;
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_D))
+		fdf->x_offset += speed;
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_W))
+		fdf->y_offset -= speed;
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_S))
+		fdf->y_offset += speed;
 }
 
 void	ft_hook_rotate(void *param)

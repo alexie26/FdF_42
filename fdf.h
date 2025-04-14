@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 20:27:04 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/14 16:13:11 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:11:54 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,6 @@ void			ft_loop_hook(void *param);
 
 void			ft_init(t_fdf *fdf);
 void			ft_hook(void *param);
-int				main(int argc, char *argv[]);
+void			free_split(char **split);
 
 #endif

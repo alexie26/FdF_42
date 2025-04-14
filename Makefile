@@ -20,8 +20,8 @@ OBJS_DIR = objs/
 
 OBJS = $(SRCS:.c=.o)
 
-CFLAGS =  -g -Wall -Wextra -Werror
-MLX_FLAGS = -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
+CFLAGS =  -g #-Wall -Wextra -Werror
+MLX_FLAGS = MLX42/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
 
 all: MLX42 $(NAME)
 
