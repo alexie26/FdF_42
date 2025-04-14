@@ -6,17 +6,17 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:51 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/13 16:42:09 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:59:53 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-static	void draw_connect(t_fdf *fdf, int i, int j, t_point p1)
+static void	draw_connect(t_fdf *fdf, int i, int j, t_point p1)
 {
-	t_point p2;
+	t_point	p2;
 
-	if (j + 1 < fdf->three_d[0][0].size)
+	if (j + 1 < fdf->size)
 	{
 		p2 = project_isometric(fdf->three_d[i][j + 1], fdf);
 		draw_line(fdf, p1, p2, fdf->three_d[i][j].color_val);
@@ -30,22 +30,26 @@ static	void draw_connect(t_fdf *fdf, int i, int j, t_point p1)
 
 void	draw_dots(t_fdf *fdf, int dist_x, int dist_y)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	t_point	p1;
 
 	i = 0;
 	(void)dist_x;
 	(void)dist_y;
+	// printf("1\n");
+	// printf("%d\n", fdf->size);
 	while (i < fdf->rows)
 	{
-		j = 0;
-		while (j < fdf->three_d[0][0].size)
+		// printf("2\n");
+		while (j < fdf->size)
 		{
+			// printf("3\n");
 			p1 = project_isometric(fdf->three_d[i][j], fdf);
 			draw_connect(fdf, i, j, p1);
 			j++;
 		}
+		j = 0;
 		i++;
 	}
 }
@@ -54,7 +58,6 @@ void	initialize_line(t_point p1, t_point p2, t_line *line)
 {
 	line->dx = abs(p2.x - p1.x);
 	line->dy = -abs(p2.y - p1.y);
-	
 	if (p1.x < p2.x)
 		line->sx = 1;
 	else
@@ -65,6 +68,7 @@ void	initialize_line(t_point p1, t_point p2, t_line *line)
 		line->sy = -1;
 	line->err = line->dx + line->dy;
 }
+
 void	update_line(t_point *p1, t_line *line)
 {
 	int	e2;
@@ -87,13 +91,13 @@ void	draw_line(t_fdf *fdf, t_point p1, t_point p2, int color)
 	t_line	line;
 
 	initialize_line(p1, p2, &line);
-
 	while (1)
 	{
-		if (p1.x >= 0 && p1.x < fdf->mlx->width && p1.y >= 0 && p1.y < fdf->mlx->height)
+		if (p1.x >= 0 && p1.x < fdf->mlx->width && p1.y >= 0
+			&& p1.y < fdf->mlx->height)
 		{
 			mlx_put_pixel(fdf->image, p1.x, p1.y, color);
-			printf("Drawing pixel at (%d, %d)\n", p1.x, p1.y);
+			// printf("Drawing pixel at (%d, %d)\n", p1.x, p1.y);
 		}
 		if (p1.x == p2.x && p1.y == p2.y)
 			break ;
@@ -101,42 +105,20 @@ void	draw_line(t_fdf *fdf, t_point p1, t_point p2, int color)
 	}
 }
 
-int		render_map(t_fdf *fdf)
+int	render_map(t_fdf *fdf)
 {
 	int	x_dist;
 	int	y_dist;
 
 	x_dist = calc_dot_dist_x(fdf);
 	y_dist = calc_dot_dist_y(fdf);
-	
 	if (x_dist == 0 || y_dist == 0)
-    {
-        ft_putstr_fd("Error: Invalid map dimensions.\n", 2);
-        return (0);
-    }
+	{
+		ft_putstr_fd("Error: Invalid map dimensions.\n", 2);
+		return (0);
+	}
 	// mlx_clear_image(fdf->image);
 	draw_dots(fdf, x_dist, y_dist);
-	
-	mlx_image_to_window(fdf->mlx, fdf->image, 0, 0);
+	// mlx_image_to_window(fdf->mlx, fdf->image, 0, 0);
 	return (1);
 }
-
-// int	render_map(t_fdf *fdf)
-// {
-//     int	x_dist;
-//     int	y_dist;
-
-//     x_dist = calc_dot_dist_x(fdf);
-//     y_dist = calc_dot_dist_y(fdf);
-
-//     if (x_dist == 0 || y_dist == 0)
-//     {
-//         ft_putstr_fd("Error: Invalid map dimensions.\n", 2);
-//         return (0);
-//     }
-
-//     // mlx_clear_image(fdf->image);
-//     draw_dots(fdf, x_dist, y_dist);
-//     mlx_image_to_window(fdf->mlx, fdf->image, 0, 0);
-//     return (1);
-// }

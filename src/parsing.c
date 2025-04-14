@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 20:00:51 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/13 16:51:59 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:58:30 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,13 @@ void	handle_comma_case(t_3d *fdf, char *split, int i, int row)
 	diff_split = ft_split(split, ',');
 	if (!diff_split || !diff_split[0] || !diff_split[1])
 	{
-		// Handle the error here, e.g.:
 		ft_putstr_fd("Error: Invalid comma format in input.\n", 2);
-		exit(1);  // or return, depending on your app
+		exit(1);
 	}
 	fdf[i].x = i;
 	fdf[i].y = row;
 	fdf[i].z = ft_atoi(diff_split[0]);
-	fdf[i].color_val = atoi(diff_split[1]);
+	fdf[i].color_val = ft_atoi(diff_split[1]);
 	fdf[i].size = get_size(diff_split);
 	free(diff_split[0]);
 	free(diff_split[1]);
@@ -52,17 +51,10 @@ t_3d	*special_split(t_3d *fdf, char *line, int row)
 	while (split[i])
 	{
 		if (check_for_comma(split[i]) == 1)
-		{
 			handle_comma_case(fdf, split[i], i, row);
-		}
 		else
-		{
 			handle_no_comma(fdf, split[i], i, row);
-		}
-		free(split[i]); // free AFTER handlers are done using it
 		i++;
-		if (split[i] == NULL)
-			break ;
 	}
 	free(split);
 	return (fdf);
@@ -74,23 +66,23 @@ t_fdf	*parse(char *filename)
 	int		fd;
 	int		i;
 	char	*line;
+	int		size;
 	t_fdf	*fdf;
 
 	row = get_rows(filename);
 	if (row == 0)
-	{
-  	  ft_putstr_fd("Error: Map has no rows.\n", 2);
-  	  return (NULL);
-	}
+		return (NULL);
 	fdf = malloc(sizeof(t_fdf));
 	fdf->three_d = malloc(sizeof(t_3d *) * row);
-	get_line_size_malloc(fdf, filename);
 	fd = open(filename, O_RDONLY);
 	line = get_next_line(fd);
+	fdf->size = get_size(ft_split(line, ' '));
 	fdf->rows = row;
 	i = 0;
 	while (i < row && line != NULL)
 	{
+		size = get_size(ft_split(line, ' '));
+		fdf->three_d[i] = malloc(sizeof(t_3d) * size);
 		fdf->three_d[i] = special_split(fdf->three_d[i], line, i);
 		free(line);
 		line = get_next_line(fd);

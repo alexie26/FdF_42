@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 20:27:04 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/12 20:35:47 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:13:11 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_fdf
 	double		xrotate;
 	double		yrotate;
 	double		zrotate;
+	int			size;
 	t_3d		**three_d;
 	mlx_t		*mlx;
 	mlx_image_t	*image;
@@ -73,7 +74,7 @@ int				check_for_comma(char *line);
 int				get_size(char **array);
 int				get_rows(char *file);
 int				get_line_size(char *line);
-void			get_line_size_malloc(t_fdf *fdf, char *filename);
+void	get_line_size_malloc(t_fdf *fdf, char *lines, int row_count);
 
 // parse
 void			handle_comma_case(t_3d *fdf, char *split, int i, int row);
@@ -103,8 +104,8 @@ void			clean_exit(t_fdf *fdf, int row);
 
 // hooks
 void			ft_loop_hook(void *param);
-// void	fdf_scrollhook(double xdelta, double ydelta, void *param);
-// void	ft_hook_rotate(void *param);
+void	ft_hook_rotate(void *param);
+// void			ft_hook_rotate(void *param);
 void			rotate_x(double *y, double *z, double alpha);
 void			rotate_y(double *x, double *z, double beta);
 void			rotate_z(double *x, double *y, double gamma);

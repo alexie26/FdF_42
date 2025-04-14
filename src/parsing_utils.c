@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 14:00:01 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/13 16:52:30 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:56:49 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,7 @@ int	get_size(char **array)
 	return (count);
 }
 
-// int	get_rows(char *file)
-// {
-// 	int		fd;
-// 	char	*line;
-// 	int		i;
-	
-// 	line = 0;
-// 	fd = open(file, O_RDONLY);
-// 	i = 0;
-// 	while (line)
-// 	{
-// 		free(line);
-// 		line = get_next_line(fd);
-// 		i++;
-// 	}
-// 	free(line);
-// 	close(fd);
-// 	return (i);
-// }
-int get_rows(char *file)
+int	get_rows(char *file)
 {
 	int		fd;
 	char	*line;
@@ -63,8 +44,7 @@ int get_rows(char *file)
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		return (-1); // error handling for file open
-
+		return (-1);
 	i = 0;
 	line = get_next_line(fd);
 	while (line)
@@ -77,44 +57,67 @@ int get_rows(char *file)
 	return (i);
 }
 
-
-int	get_line_size(char *line)
+void	free_split(char **split)
 {
-	char	**split;
-	int		i;
+	int	i;
 
-	split = ft_split(line, ' ');
 	i = 0;
+	if (!split)
+		return ;
 	while (split[i])
 	{
 		free(split[i]);
 		i++;
 	}
 	free(split);
-	return (i);
 }
 
-void	get_line_size_malloc(t_fdf *fdf, char *filename)
+// void	get_line_size_malloc(t_fdf *fdf, char *filename)
+// {
+// 	int		fd;
+// 	char	*line;
+// 	int		i;
+
+// 	fd = open(filename, O_RDONLY);
+// 	line = get_next_line(fd);
+// 	i = 0;
+// 	int k = 0;
+// 	while (line)
+// 	{
+// 		printf("getlinesizeandmalloc:\t\t%d\n", k);
+// 		k++;
+// 		int size = get_line_size(line);
+// 		fdf->three_d[i] = malloc(sizeof(t_3d) * size);
+// 		fdf->three_d[i]->size = size;
+// 		i++;
+// 		free(line);
+// 		line = get_next_line(fd);
+// 	}
+// 	close(fd);
+// 	free(line);
+// }
+
+void	get_line_size_malloc(t_fdf *fdf, char *lines, int row_count)
 {
+	int		i;
+	char	**split;
+	int		size;
 	int		fd;
 	char	*line;
-	int		i;
 
-	fd = open(filename, O_RDONLY);
+	fd = open(lines, O_RDONLY);
 	line = get_next_line(fd);
+	fdf->three_d = malloc(sizeof(t_3d *) * row_count);
 	i = 0;
-	int k = 0;
-	while (line)
+	while (i < row_count)
 	{
-		printf("getlinesizeandmalloc:\t\t%d\n", k);
-		k++;
-		int size = get_line_size(line);
-		fdf->three_d[i] = malloc(sizeof(t_3d) * size);
-		fdf->three_d[i]->size = size;
-		i++;
-		free(line);
+		split = ft_split(&lines[i], ' ');
+		size = get_size(split);
+		fdf->three_d[i] = malloc(sizeof(t_3d *) * size);
 		line = get_next_line(fd);
+		free_split(split);
+		i++;
 	}
 	close(fd);
-	free(line);
+	fdf->rows = row_count;
 }
