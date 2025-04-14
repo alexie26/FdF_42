@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 20:00:51 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/14 17:13:24 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/14 18:54:08 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,9 @@ t_fdf	*parse(char *filename)
 	fdf->three_d = malloc(sizeof(t_3d *) * row);
 	fd = open(filename, O_RDONLY);
 	line = get_next_line(fd);
-	fdf->size = get_size(ft_split(line, ' '));
+	char **temp = ft_split(line, ' ');
+	fdf->size = get_size(temp);
+	free_split(temp);
 	fdf->rows = row;
 	i = 0;
 	while (i < row && line != NULL)
