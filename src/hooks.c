@@ -6,11 +6,23 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 17:32:05 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/14 18:30:38 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/17 21:20:26 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
+
+void	fdf_zoom(double xdelta, double ydelta, void *param)
+{
+	t_fdf	*fdf;
+
+	fdf = (t_fdf *)param;
+	if (ydelta > 0)
+		fdf->zoom *= 1.02;
+	else if (ydelta < 0 && fdf->zoom * 0.98 > 0)
+		fdf->zoom *= 0.98;
+	xdelta++;
+}
 
 void	ft_loop_hook(void *param)
 {
@@ -25,28 +37,26 @@ void	ft_loop_hook(void *param)
 	// printf("speed%d\n", speed);
 	if (speed > 25)
 		speed = 25;
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_0))
+	{
+		fdf->xrotate = 0;
+		fdf->yrotate = 0;
+		fdf->zrotate = 0;
+	}
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_ESCAPE) == true)
 		clean_exit(fdf, fdf->rows);
-	if (mlx_is_key_down(fdf->mlx, MLX_KEY_LEFT))
-	{
-		fdf->zoom--;
-		fdf->z_scale--;
-		if (fdf->z_scale < 1)
-			fdf->z_scale = 1;
-	}
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_RIGHT))
-	{
-		fdf->zoom++;
-		fdf->z_scale++ ;
-	}
-	if (mlx_is_key_down(fdf->mlx, MLX_KEY_A))
 		fdf->x_offset -= speed;
-	if (mlx_is_key_down(fdf->mlx, MLX_KEY_D))
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_LEFT))
 		fdf->x_offset += speed;
-	if (mlx_is_key_down(fdf->mlx, MLX_KEY_W))
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_UP))
 		fdf->y_offset -= speed;
-	if (mlx_is_key_down(fdf->mlx, MLX_KEY_S))
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_DOWN))
 		fdf->y_offset += speed;
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_KP_ADD))
+		fdf->z_scale++;
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_KP_SUBTRACT))
+		fdf->z_scale--;
 }
 
 void	ft_hook_rotate(void *param)
@@ -61,7 +71,7 @@ void	ft_hook_rotate(void *param)
 	else if (mlx_is_key_down(fdf->mlx, MLX_KEY_PERIOD))
 		sign = 1;
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_S))
-		fdf->z_scale += sign * 0.03;
+		fdf->z_scale += sign * 0.02;
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_X))
 		fdf->xrotate += sign * 0.02;
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_Y))

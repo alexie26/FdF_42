@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 14:00:01 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/14 15:56:49 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:43:28 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,31 +71,6 @@ void	free_split(char **split)
 	}
 	free(split);
 }
-
-// void	get_line_size_malloc(t_fdf *fdf, char *filename)
-// {
-// 	int		fd;
-// 	char	*line;
-// 	int		i;
-
-// 	fd = open(filename, O_RDONLY);
-// 	line = get_next_line(fd);
-// 	i = 0;
-// 	int k = 0;
-// 	while (line)
-// 	{
-// 		printf("getlinesizeandmalloc:\t\t%d\n", k);
-// 		k++;
-// 		int size = get_line_size(line);
-// 		fdf->three_d[i] = malloc(sizeof(t_3d) * size);
-// 		fdf->three_d[i]->size = size;
-// 		i++;
-// 		free(line);
-// 		line = get_next_line(fd);
-// 	}
-// 	close(fd);
-// 	free(line);
-// }
 
 void	get_line_size_malloc(t_fdf *fdf, char *lines, int row_count)
 {

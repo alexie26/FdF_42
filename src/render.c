@@ -6,11 +6,12 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:51 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/14 15:59:53 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/17 17:50:41 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
+
 
 static void	draw_connect(t_fdf *fdf, int i, int j, t_point p1)
 {
@@ -19,12 +20,13 @@ static void	draw_connect(t_fdf *fdf, int i, int j, t_point p1)
 	if (j + 1 < fdf->size)
 	{
 		p2 = project_isometric(fdf->three_d[i][j + 1], fdf);
-		draw_line(fdf, p1, p2, fdf->three_d[i][j].color_val);
+		draw_line(fdf, p1, p2, fdf->three_d[i][j].color_val, 0xffffffff);
+		// printf("%d\n", fdf->three_d[i][j].color_val);
 	}
 	if (i + 1 < fdf->rows)
 	{
 		p2 = project_isometric(fdf->three_d[i + 1][j], fdf);
-		draw_line(fdf, p1, p2, fdf->three_d[i][j].color_val);
+		draw_line(fdf, p1, p2, fdf->three_d[i][j].color_val, 0xffffffff);
 	}
 }
 
@@ -37,11 +39,8 @@ void	draw_dots(t_fdf *fdf, int dist_x, int dist_y)
 	i = 0;
 	(void)dist_x;
 	(void)dist_y;
-	// printf("1\n");
-	// printf("%d\n", fdf->size);
 	while (i < fdf->rows)
 	{
-		// printf("2\n");
 		while (j < fdf->size)
 		{
 			// printf("3\n");
@@ -86,9 +85,10 @@ void	update_line(t_point *p1, t_line *line)
 	}
 }
 
-void	draw_line(t_fdf *fdf, t_point p1, t_point p2, int color)
+void	draw_line(t_fdf *fdf, t_point p1, t_point p2, int color_a, int color_b)
 {
 	t_line	line;
+	unsigned int color;
 
 	initialize_line(p1, p2, &line);
 	while (1)
@@ -96,6 +96,7 @@ void	draw_line(t_fdf *fdf, t_point p1, t_point p2, int color)
 		if (p1.x >= 0 && p1.x < fdf->mlx->width && p1.y >= 0
 			&& p1.y < fdf->mlx->height)
 		{
+			color = get_gradient_color(p1, p1, p2, color_a, color_b);
 			mlx_put_pixel(fdf->image, p1.x, p1.y, color);
 			// printf("Drawing pixel at (%d, %d)\n", p1.x, p1.y);
 		}

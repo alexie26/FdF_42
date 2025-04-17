@@ -9,10 +9,11 @@ SRCS = getnextline42/get_next_line.c \
        src/parsing.c \
 	   src/parsing_utils.c \
 	   src/render.c \
-	   src/render2.c \
+	   src/isometric.c \
 	    src/render_utils.c \
 	   src/error_utils.c \
 	   src/hooks.c 		\
+	   src/colors.c
 
 
 COMPILER = cc
@@ -20,7 +21,7 @@ OBJS_DIR = objs/
 
 OBJS = $(SRCS:.c=.o)
 
-CFLAGS =  -g -Wall -Wextra -Werror
+CFLAGS =  -g -Wall -Wextra -Werror -fsanitize=address
 MLX_FLAGS = -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 
 all: MLX42 $(NAME)

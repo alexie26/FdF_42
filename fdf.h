@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 20:27:04 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/14 17:11:54 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/17 21:33:50 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # define HEIGHT 1080
 # define MAX_WIDTH 100
 # define PI 3.14159265358979323846
+# define INVALID_MAP		"Map is invalid"
+# define FILE_ERROR			"Unable to open file"
 
 typedef struct s_point
 {
@@ -65,6 +67,7 @@ typedef struct s_fdf
 	double		zrotate;
 	int			size;
 	t_3d		**three_d;
+	t_point		**two_d;
 	mlx_t		*mlx;
 	mlx_image_t	*image;
 }				t_fdf;
@@ -92,19 +95,24 @@ void			rotate_point(int *x, int *y, t_fdf *fdf);
 void			draw_dots(t_fdf *fdf, int dist_x, int dist_y);
 void			initialize_line(t_point p1, t_point p2, t_line *line);
 void			update_line(t_point *p1, t_line *line);
-void			draw_line(t_fdf *fdf, t_point p1, t_point p2, int color);
+void			draw_line(t_fdf *fdf, t_point p1, t_point p2, int color_a, int color_b);
 int				render_map(t_fdf *fdf);
+void			precompute_projection(t_fdf *fdf);
+
 	// void	draw_line(t_fdf *fdf, t_point p1, t_point p2, int color);
 
-	// render2
-	t_point project_isometric(t_3d pt, t_fdf *fdf);
+// render2
+t_point project_isometric(t_3d pt, t_fdf *fdf);
 
 // error
 void			clean_exit(t_fdf *fdf, int row);
+void	handle_error(char *msg);
+void	free_projection(t_fdf *fdf);
+
 
 // hooks
 void			ft_loop_hook(void *param);
-void	ft_hook_rotate(void *param);
+void			ft_hook_rotate(void *param);
 // void			ft_hook_rotate(void *param);
 void			rotate_x(double *y, double *z, double alpha);
 void			rotate_y(double *x, double *z, double beta);
@@ -115,5 +123,14 @@ void			ft_loop_hook(void *param);
 void			ft_init(t_fdf *fdf);
 void			ft_hook(void *param);
 void			free_split(char **split);
+
+//colors
+unsigned int create_color(uint8_t r,uint8_t g, uint8_t b, uint8_t a);
+unsigned int zcolor(double perc);
+void set_zcolor(t_fdf *fdf, int min_z, int max_z);
+int radiant(int start, int end, double percentage);
+unsigned int get_gradient_color(t_point current, t_point a, t_point b, unsigned int color_a, unsigned int color_b);
+
+void	free_tab(void **tab, size_t len);
 
 #endif

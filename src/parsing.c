@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 20:00:51 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/14 18:54:08 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/17 21:22:15 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	handle_comma_case(t_3d *fdf, char *split, int i, int row)
 	fdf[i].x = i;
 	fdf[i].y = row;
 	fdf[i].z = ft_atoi(diff_split[0]);
-	fdf[i].color_val = ft_atoi(diff_split[1]);
+	// fdf[i].color_val = ft_atoi(diff_split[1]);
+	fdf[i].color_val = 0xffffffff;
 	fdf[i].size = get_size(diff_split);
 	free(diff_split[0]);
 	free(diff_split[1]);
@@ -37,7 +38,7 @@ void	handle_no_comma(t_3d *fdf, char *split, int i, int row)
 	fdf[i].x = i;
 	fdf[i].y = row;
 	fdf[i].z = ft_atoi(split);
-	fdf[i].color_val = 0xe5ccffff;
+	fdf[i].color_val = 0xffffffff;
 	// fdf[i].size = get_size(&split);
 }
 
@@ -70,15 +71,21 @@ t_fdf	*parse(char *filename)
 	int		size;
 	t_fdf	*fdf;
 	char	**freesplit;
+	char	**temp;
 
 	row = get_rows(filename);
 	if (row == 0)
 		return (NULL);
 	fdf = malloc(sizeof(t_fdf));
 	fdf->three_d = malloc(sizeof(t_3d *) * row);
+	if (!fdf->three_d)
+	{
+		free(fdf);
+		return (NULL);
+	}
 	fd = open(filename, O_RDONLY);
 	line = get_next_line(fd);
-	char **temp = ft_split(line, ' ');
+	temp = ft_split(line, ' ');
 	fdf->size = get_size(temp);
 	free_split(temp);
 	fdf->rows = row;

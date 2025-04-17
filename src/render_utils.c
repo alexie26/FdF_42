@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 15:01:35 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/14 15:59:05 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/17 17:24:58 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,6 @@ int	calc_dot_dist_x(t_fdf *fdf)
 	int	distance;
 
 	amount = fdf->size;
-	// printf("%d--amount\n", amount);
-	if (amount == 0)
-	{
-		ft_putstr_fd("Error: Number of columns is zero.\n", 2);
-		return (0);
-	}
 	distance = (WIDTH - 50) / amount;
 	return (distance);
 }
