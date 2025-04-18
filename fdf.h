@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 20:27:04 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/17 21:33:50 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/18 18:00:05 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,13 @@ typedef struct s_point
 	int			x;
 	int			y;
 }				t_point;
+
+typedef struct s_coords
+{
+	double	x;
+	double	y;
+	double	z;
+}	t_coords;
 
 typedef struct s_line
 {
@@ -83,7 +90,7 @@ void	get_line_size_malloc(t_fdf *fdf, char *lines, int row_count);
 void			handle_comma_case(t_3d *fdf, char *split, int i, int row);
 void			handle_no_comma(t_3d *fdf, char *split, int i, int row);
 t_3d			*special_split(t_3d *fdf, char *line, int row);
-t_fdf			*parse(char *filename);
+t_fdf			*parse(char *filename, int i);
 
 // render_utils
 int				calc_dot_dist_x(t_fdf *fdf);
@@ -113,7 +120,7 @@ void	free_projection(t_fdf *fdf);
 // hooks
 void			ft_loop_hook(void *param);
 void			ft_hook_rotate(void *param);
-// void			ft_hook_rotate(void *param);
+void			fdf_zoom(double xdelta, double ydelta, void *param);
 void			rotate_x(double *y, double *z, double alpha);
 void			rotate_y(double *x, double *z, double beta);
 void			rotate_z(double *x, double *y, double gamma);

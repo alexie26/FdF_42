@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 19:51:24 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/17 21:33:21 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/18 16:28:40 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	handle_error(char *msg)
 	ft_putstr_fd("\n", 2);
 	exit(EXIT_FAILURE);
 }
+
 void	clean_exit(t_fdf *fdf, int row)
 {
 	int	i;

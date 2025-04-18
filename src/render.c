@@ -6,12 +6,11 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:51 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/17 17:50:41 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/18 16:17:16 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
-
 
 static void	draw_connect(t_fdf *fdf, int i, int j, t_point p1)
 {
@@ -87,8 +86,8 @@ void	update_line(t_point *p1, t_line *line)
 
 void	draw_line(t_fdf *fdf, t_point p1, t_point p2, int color_a, int color_b)
 {
-	t_line	line;
-	unsigned int color;
+	t_line			line;
+	// unsigned int	color;
 
 	initialize_line(p1, p2, &line);
 	while (1)
@@ -96,9 +95,8 @@ void	draw_line(t_fdf *fdf, t_point p1, t_point p2, int color_a, int color_b)
 		if (p1.x >= 0 && p1.x < fdf->mlx->width && p1.y >= 0
 			&& p1.y < fdf->mlx->height)
 		{
-			color = get_gradient_color(p1, p1, p2, color_a, color_b);
-			mlx_put_pixel(fdf->image, p1.x, p1.y, color);
-			// printf("Drawing pixel at (%d, %d)\n", p1.x, p1.y);
+			mlx_put_pixel(fdf->image, p1.x, p1.y, get_gradient_color(p1, p1, p2,
+					color_a, color_b));
 		}
 		if (p1.x == p2.x && p1.y == p2.y)
 			break ;
