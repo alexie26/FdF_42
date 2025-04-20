@@ -6,26 +6,39 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:51 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/18 16:17:16 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/20 18:33:35 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-static void	draw_connect(t_fdf *fdf, int i, int j, t_point p1)
+static void	draw_connect(t_fdf *fdf, int i, int j)
 {
-	t_point	p2;
+	t_line_data	line_data;
+	t_point		p2;
+	int			color1;
+	int			color2;
 
+	color1 = fdf->three_d[i][j].color_val;
 	if (j + 1 < fdf->size)
 	{
+		color2 = fdf->three_d[i][j + 1].color_val;
 		p2 = project_isometric(fdf->three_d[i][j + 1], fdf);
-		draw_line(fdf, p1, p2, fdf->three_d[i][j].color_val, 0xffffffff);
-		// printf("%d\n", fdf->three_d[i][j].color_val);
+		line_data.p1 = project_isometric(fdf->three_d[i][j], fdf);
+		line_data.p2 = p2;
+		line_data.color_a = color1;
+		line_data.color_b = color2;
+		draw_line(fdf, line_data);
 	}
 	if (i + 1 < fdf->rows)
 	{
+		color2 = fdf->three_d[i + 1][j].color_val;
 		p2 = project_isometric(fdf->three_d[i + 1][j], fdf);
-		draw_line(fdf, p1, p2, fdf->three_d[i][j].color_val, 0xffffffff);
+		line_data.p1 = project_isometric(fdf->three_d[i][j], fdf);
+		line_data.p2 = p2;
+		line_data.color_a = color1;
+		line_data.color_b = color2;
+		draw_line(fdf, line_data);
 	}
 }
 
@@ -42,9 +55,8 @@ void	draw_dots(t_fdf *fdf, int dist_x, int dist_y)
 	{
 		while (j < fdf->size)
 		{
-			// printf("3\n");
 			p1 = project_isometric(fdf->three_d[i][j], fdf);
-			draw_connect(fdf, i, j, p1);
+			draw_connect(fdf, i, j);
 			j++;
 		}
 		j = 0;
@@ -84,23 +96,28 @@ void	update_line(t_point *p1, t_line *line)
 	}
 }
 
-void	draw_line(t_fdf *fdf, t_point p1, t_point p2, int color_a, int color_b)
+void	draw_line(t_fdf *fdf, t_line_data line_data)
 {
-	t_line			line;
-	// unsigned int	color;
+	t_line	line;
+	t_grad	gradient;
 
-	initialize_line(p1, p2, &line);
+	gradient.a = line_data.p1;
+	gradient.b = line_data.p2;
+	gradient.color_a = line_data.color_a;
+	gradient.color_b = line_data.color_b;
+	initialize_line(line_data.p1, line_data.p2, &line);
 	while (1)
 	{
-		if (p1.x >= 0 && p1.x < fdf->mlx->width && p1.y >= 0
-			&& p1.y < fdf->mlx->height)
+		if (line_data.p1.x >= 0 && line_data.p1.x < fdf->mlx->width
+			&& line_data.p1.y >= 0 && line_data.p1.y < fdf->mlx->height)
 		{
-			mlx_put_pixel(fdf->image, p1.x, p1.y, get_gradient_color(p1, p1, p2,
-					color_a, color_b));
+			mlx_put_pixel(fdf->image, line_data.p1.x, line_data.p1.y,
+				get_gradient_color(line_data.p1, gradient));
 		}
-		if (p1.x == p2.x && p1.y == p2.y)
+		if (line_data.p1.x == line_data.p2.x
+			&& line_data.p1.y == line_data.p2.y)
 			break ;
-		update_line(&p1, &line);
+		update_line(&line_data.p1, &line);
 	}
 }
 
@@ -116,8 +133,6 @@ int	render_map(t_fdf *fdf)
 		ft_putstr_fd("Error: Invalid map dimensions.\n", 2);
 		return (0);
 	}
-	// mlx_clear_image(fdf->image);
 	draw_dots(fdf, x_dist, y_dist);
-	// mlx_image_to_window(fdf->mlx, fdf->image, 0, 0);
 	return (1);
 }

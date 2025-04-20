@@ -6,13 +6,13 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:01:32 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/18 16:15:53 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/20 18:47:02 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void leaks(void)
+void	leaks(void)
 {
 	system("leaks fdf");
 }
@@ -89,6 +89,7 @@ void	ft_hook(void *param)
 {
 	ft_loop_hook(param);
 	ft_hook_rotate(param);
+	key_handler(param);
 	clean_map((t_fdf *)param);
 	render_map((t_fdf *)param);
 }
@@ -123,7 +124,7 @@ int	main(int argc, char *argv[])
 		return (1);
 	}
 	close(fd);
-	fdf = parse(argv[1], -1); //aha
+	fdf = parse(argv[1], -1); // aha
 	if (!fdf || !fdf->three_d || fdf->rows <= 0)
 	{
 		ft_putstr_fd("Error: Failed to parse the map file.\n", 2);

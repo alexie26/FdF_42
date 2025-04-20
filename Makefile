@@ -19,7 +19,9 @@ SRC = getnextline42/get_next_line.c \
       src/error_utils.c \
       src/hooks.c \
       src/colors.c \
+	  src/colors_utils.c \
 	  src/rotate.c \
+	  src/max_min.c \
 
 OBJS_DIR = objs
 OBJS = $(patsubst %.c, $(OBJS_DIR)/%.o, $(SRC))

@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 19:51:24 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/18 16:28:40 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/20 18:48:39 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,16 @@ void	free_projection(t_fdf *fdf)
 	free(fdf);
 }
 
-void	handle_error(char *msg)
+void	handle_error(const char *message)
 {
-	ft_putstr_fd("Error: ", 2);
-	ft_putstr_fd(msg, 2);
-	ft_putstr_fd("\n", 2);
-	exit(EXIT_FAILURE);
+	if (errno == 0)
+	{
+		ft_putstr_fd("FdF: ", 2);
+		ft_putendl_fd((char *)message, 2);
+	}
+	else
+		perror("FdF");
+	exit(1);
 }
 
 void	clean_exit(t_fdf *fdf, int row)
