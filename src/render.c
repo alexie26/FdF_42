@@ -6,17 +6,16 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:51 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/20 18:33:35 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/21 18:46:03 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-static void	draw_connect(t_fdf *fdf, int i, int j)
+static void	draw_connect(t_fdf *fdf, int i, int j, int color1)
 {
 	t_line_data	line_data;
 	t_point		p2;
-	int			color1;
 	int			color2;
 
 	color1 = fdf->three_d[i][j].color_val;
@@ -56,7 +55,7 @@ void	draw_dots(t_fdf *fdf, int dist_x, int dist_y)
 		while (j < fdf->size)
 		{
 			p1 = project_isometric(fdf->three_d[i][j], fdf);
-			draw_connect(fdf, i, j);
+			draw_connect(fdf, i, j, 0);
 			j++;
 		}
 		j = 0;

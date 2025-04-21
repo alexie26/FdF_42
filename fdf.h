@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 20:27:04 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/20 18:49:49 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/21 18:46:40 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ t_point				project_isometric(t_3d pt, t_fdf *fdf);
 
 // error
 void				clean_exit(t_fdf *fdf, int row);
-void				handle_error(char *msg);
+void				handle_error(const char *message);
 void				free_projection(t_fdf *fdf);
 
 // hooks
