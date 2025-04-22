@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 20:27:04 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/21 18:46:40 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/22 20:43:07 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,19 @@
 # define MALLOC				"Malloc failed"
 # define INVALID_MAP		"Map is invalid"
 # define FILE_ERROR			"Unable to open file"
+# define TEXT_COLOR			0xEAEAEAFF
+# define BACKGROUND			0x22222200
+# define MENU_BACKGROUND	0x1E1E1EFF
+# define COLOR_TEN			0x9e0142ff
+# define COLOR_NINE			0xd53e4fff
+# define COLOR_EIGHT		0xf46d43ff
+# define COLOR_SEVEN		0xfdae61ff
+# define COLOR_SIX			0xfee08bff
+# define COLOR_FIVE			0xe6f598ff
+# define COLOR_FOUR			0xabdda4ff
+# define COLOR_THREE		0x66c2a5ff
+# define COLOR_TWO			0x3288bdff
+# define COLOR_ONE			0x5e4fa2ff
 
 typedef struct s_point
 {
@@ -155,10 +168,12 @@ void				free_split(char **split);
 
 // colors
 unsigned int		create_color(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
-unsigned int		zcolor(double perc, int color_mode);
+// unsigned int		zcolor(double perc, int color_mode);
 void				set_zcolor(t_fdf *fdf, int min_z, int max_z);
 int					radiant(int start, int end, double percentage);
 unsigned int		get_gradient_color(t_point current, t_grad gradient);
+double				percent(int start, int end, int current);
+
 
 // colors utils
 int					ft_max(int a, int b);

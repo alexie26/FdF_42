@@ -4,7 +4,7 @@ USER = $(shell whoami)
 OS = $(shell uname)
 
 COMPILER = cc
-CFLAGS = -g -Wall -Wextra -Werror # -fsanitize=address
+CFLAGS = -g -Wall -Wextra -Werror -fsanitize=address
 MLX_FLAGS = -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 
 SRC = getnextline42/get_next_line.c \
@@ -19,7 +19,6 @@ SRC = getnextline42/get_next_line.c \
       src/error_utils.c \
       src/hooks.c \
       src/colors.c \
-	  src/colors_utils.c \
 	  src/rotate.c \
 	  src/max_min.c \
 

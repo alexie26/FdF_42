@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:01:32 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/20 18:47:02 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/22 20:23:29 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	clean_map(t_fdf *fdf)
 {
 	for (int x = 0; x < WIDTH; x++)
 		for (int y = 0; y < HEIGHT; y++)
-			mlx_put_pixel(fdf->image, x, y, 0xff);
+			mlx_put_pixel(fdf->image, x, y, 0x22222200);
 }
 
 void	ft_hook(void *param)
@@ -114,7 +114,7 @@ int	main(int argc, char *argv[])
 	t_fdf	*fdf;
 	int		fd;
 
-	atexit(leaks);
+	// atexit(leaks);
 	if (argc != 2)
 		handle_error("Usage: ./fdf test_maps/...");
 	fd = open(argv[1], O_RDONLY);
