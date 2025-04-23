@@ -6,12 +6,11 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 16:23:56 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/23 19:30:14 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/23 20:08:52 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
-#include <string.h> //TODO remove
 
 static int	is_upper_hex_char(char c)
 {

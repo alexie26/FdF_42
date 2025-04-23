@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 20:27:04 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/23 19:44:48 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/23 20:10:17 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,34 +17,34 @@
 # include "getnextline42/get_next_line.h"
 # include "libft-42/libft.h"
 # include "printf42/ft_printf.h"
+# include <errno.h>
 # include <fcntl.h>
 # include <limits.h>
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <errno.h>
 
 # define WIDTH 1920
 # define HEIGHT 1080
 # define MAX_WIDTH 100
 # define PI 3.14159265358979323846
-# define FORMAT				"Format:\n\t./fdf maps/filename.fdf"
-# define MALLOC				"Malloc failed"
-# define INVALID_MAP		"Map is invalid"
-# define FILE_ERROR			"Unable to open file"
-# define TEXT_COLOR			0xEAEAEAFF
-# define BACKGROUND			0x22222200
-# define MENU_BACKGROUND	0x1E1E1EFF
-# define COLOR_TEN			0x9e0142ff
-# define COLOR_NINE			0xd53e4fff
-# define COLOR_EIGHT		0xf46d43ff
-# define COLOR_SEVEN		0xfdae61ff
-# define COLOR_SIX			0xfee08bff
-# define COLOR_FIVE			0xe6f598ff
-# define COLOR_FOUR			0xabdda4ff
-# define COLOR_THREE		0x66c2a5ff
-# define COLOR_TWO			0x3288bdff
-# define COLOR_ONE			0x5e4fa2ff
+# define FORMAT "Format:\n\t./fdf maps/filename.fdf"
+# define MALLOC "Malloc failed"
+# define INVALID_MAP "Map is invalid"
+# define FILE_ERROR "Unable to open file"
+# define TEXT_COLOR 0xEAEAEAFF
+# define BACKGROUND 0x22222200
+# define MENU_BACKGROUND 0x1E1E1EFF
+# define COLOR_TEN 0x9e0142ff
+# define COLOR_NINE 0xd53e4fff
+# define COLOR_EIGHT 0xf46d43ff
+# define COLOR_SEVEN 0xfdae61ff
+# define COLOR_SIX 0xfee08bff
+# define COLOR_FIVE 0xe6f598ff
+# define COLOR_FOUR 0xabdda4ff
+# define COLOR_THREE 0x66c2a5ff
+# define COLOR_TWO 0x3288bdff
+# define COLOR_ONE 0x5e4fa2ff
 
 typedef struct s_point
 {
@@ -166,7 +166,6 @@ void				ft_loop_hook(void *param);
 void				ft_init(t_fdf *fdf);
 void				ft_hook(void *param);
 void				free_split(char **split);
-
 
 void				free_tab(void **tab, size_t len);
 
