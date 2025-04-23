@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:01:32 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/22 20:23:29 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/23 19:46:09 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void	ft_hook(void *param)
 {
 	ft_loop_hook(param);
 	ft_hook_rotate(param);
-	key_handler(param);
 	clean_map((t_fdf *)param);
 	render_map((t_fdf *)param);
 }

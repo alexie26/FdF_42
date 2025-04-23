@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:51 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/21 18:46:03 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/23 19:43:53 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	draw_connect(t_fdf *fdf, int i, int j, int color1)
 		line_data.p2 = p2;
 		line_data.color_a = color1;
 		line_data.color_b = color2;
-		draw_line(fdf, line_data);
+		draw_line(fdf, line_data, j, i);
 	}
 	if (i + 1 < fdf->rows)
 	{
@@ -37,7 +37,7 @@ static void	draw_connect(t_fdf *fdf, int i, int j, int color1)
 		line_data.p2 = p2;
 		line_data.color_a = color1;
 		line_data.color_b = color2;
-		draw_line(fdf, line_data);
+		draw_line(fdf, line_data, j, i);
 	}
 }
 
@@ -95,7 +95,7 @@ void	update_line(t_point *p1, t_line *line)
 	}
 }
 
-void	draw_line(t_fdf *fdf, t_line_data line_data)
+void	draw_line(t_fdf *fdf, t_line_data line_data, int j, int i)
 {
 	t_line	line;
 	t_grad	gradient;
@@ -111,7 +111,7 @@ void	draw_line(t_fdf *fdf, t_line_data line_data)
 			&& line_data.p1.y >= 0 && line_data.p1.y < fdf->mlx->height)
 		{
 			mlx_put_pixel(fdf->image, line_data.p1.x, line_data.p1.y,
-				get_gradient_color(line_data.p1, gradient));
+				fdf->three_d[i][j].color_val);
 		}
 		if (line_data.p1.x == line_data.p2.x
 			&& line_data.p1.y == line_data.p2.y)

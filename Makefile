@@ -18,7 +18,6 @@ SRC = getnextline42/get_next_line.c \
       src/render_utils.c \
       src/error_utils.c \
       src/hooks.c \
-      src/colors.c \
 	  src/rotate.c \
 	  src/max_min.c \
 

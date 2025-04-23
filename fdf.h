@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 20:27:04 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/22 20:43:07 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/23 19:44:48 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ typedef struct s_3d
 	int				y;
 	int				x;
 	int				z;
-	int				color_val;
+	unsigned int	color_val;
+	bool			color;
 	int				size;
 }					t_3d;
 
@@ -138,7 +139,7 @@ void				rotate_point(int *x, int *y, t_fdf *fdf);
 void				draw_dots(t_fdf *fdf, int dist_x, int dist_y);
 void				initialize_line(t_point p1, t_point p2, t_line *line);
 void				update_line(t_point *p1, t_line *line);
-void				draw_line(t_fdf *fdf, t_line_data line_data);
+void				draw_line(t_fdf *fdf, t_line_data line_data, int j, int i);
 int					render_map(t_fdf *fdf);
 void				precompute_projection(t_fdf *fdf);
 
@@ -166,20 +167,6 @@ void				ft_init(t_fdf *fdf);
 void				ft_hook(void *param);
 void				free_split(char **split);
 
-// colors
-unsigned int		create_color(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
-// unsigned int		zcolor(double perc, int color_mode);
-void				set_zcolor(t_fdf *fdf, int min_z, int max_z);
-int					radiant(int start, int end, double percentage);
-unsigned int		get_gradient_color(t_point current, t_grad gradient);
-double				percent(int start, int end, int current);
-
-
-// colors utils
-int					ft_max(int a, int b);
-int					ft_min(int a, int b);
-
-void				key_handler(void *param);
 
 void				free_tab(void **tab, size_t len);
 
