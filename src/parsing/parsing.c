@@ -6,11 +6,11 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 20:00:51 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/18 16:24:30 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/24 17:48:55 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fdf.h"
+#include "../../fdf.h"
 
 static t_fdf	*allocate_fdf(int row)
 {
@@ -28,17 +28,22 @@ static t_fdf	*allocate_fdf(int row)
 	return (fdf);
 }
 
-static void	initialize_fdf(t_fdf *fdf, char *line, int row)
+void	initialize_fdf(t_fdf *fdf, char *line, int row)
 {
 	char	**temp;
 
 	temp = ft_split(line, ' ');
+	if (!temp)
+	{
+		ft_putstr_fd("Error: Memory allocation failed.\n", 2);
+		return ;
+	}
 	fdf->size = get_size(temp);
 	free_split(temp);
 	fdf->rows = row;
 }
 
-static void	process_file_line(t_fdf *fdf, char *line, int row)
+void	process_file_line(t_fdf *fdf, char *line, int row)
 {
 	char	**freesplit;
 	int		size;

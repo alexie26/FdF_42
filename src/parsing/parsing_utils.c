@@ -6,11 +6,11 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 14:00:01 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/16 16:43:28 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/24 17:49:20 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fdf.h"
+#include "../../fdf.h"
 
 int	check_for_comma(char *line)
 {

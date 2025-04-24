@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 17:32:05 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/20 18:38:30 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/24 14:27:54 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ static void	handle_movement(t_fdf *fdf, int speed)
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_DOWN))
 		fdf->y_offset += speed;
 	if (mlx_is_key_down(fdf->mlx, MLX_KEY_KP_ADD))
-		fdf->z_scale++;
-	if (mlx_is_key_down(fdf->mlx, MLX_KEY_KP_SUBTRACT))
 		fdf->z_scale--;
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_KP_SUBTRACT))
+		fdf->z_scale++;
 }
 
 void	ft_loop_hook(void *param)

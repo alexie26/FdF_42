@@ -6,11 +6,11 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 15:01:35 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/18 17:37:50 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/24 17:49:47 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fdf.h"
+#include "../../fdf.h"
 
 int	calc_dot_dist_x(t_fdf *fdf)
 {

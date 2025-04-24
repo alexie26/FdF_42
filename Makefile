@@ -4,18 +4,20 @@ USER = $(shell whoami)
 OS = $(shell uname)
 
 COMPILER = cc
-CFLAGS = -g -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -g -Wall -Wextra -Werror #-fsanitize=address
 MLX_FLAGS = -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 
 SRC = getnextline42/get_next_line.c \
       getnextline42/get_next_line_utils.c \
       main.c \
-      src/parsing.c \
-	  src/parsing2.c \
-      src/parsing_utils.c \
-      src/render.c \
-      src/isometric.c \
-      src/render_utils.c \
+      src/parsing/parsing.c \
+	  src/parsing/parsing2.c \
+      src/parsing/parsing_utils.c \
+	  src/parsing/parsing_hex.c \
+      src/render/render.c \
+      src/render/isometric.c \
+      src/render/render_utils.c \
+	  src/render/render_utils2.c \
       src/error_utils.c \
       src/hooks.c \
 	  src/rotate.c \

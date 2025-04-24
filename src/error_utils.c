@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 19:51:24 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/20 18:48:39 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/24 14:44:35 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,19 @@ void	clean_exit(t_fdf *fdf, int row)
 	mlx_delete_image(fdf->mlx, fdf->image);
 	mlx_terminate(fdf->mlx);
 	exit(0);
+}
+
+void	free_fdf(t_fdf *fdf)
+{
+	if (!fdf)
+		return ;
+	if (fdf->three_d)
+		free_tab((void **)fdf->three_d, fdf->rows);
+	if (fdf->two_d)
+		free_tab((void **)fdf->two_d, fdf->rows);
+	if (fdf->image)
+		mlx_delete_image(fdf->mlx, fdf->image);
+	if (fdf->mlx)
+		mlx_terminate(fdf->mlx);
+	free(fdf);
 }

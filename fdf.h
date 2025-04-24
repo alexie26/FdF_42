@@ -6,7 +6,7 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 20:27:04 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/23 20:10:17 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/24 17:51:09 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,6 @@
 # define HEIGHT 1080
 # define MAX_WIDTH 100
 # define PI 3.14159265358979323846
-# define FORMAT "Format:\n\t./fdf maps/filename.fdf"
-# define MALLOC "Malloc failed"
-# define INVALID_MAP "Map is invalid"
-# define FILE_ERROR "Unable to open file"
 # define TEXT_COLOR 0xEAEAEAFF
 # define BACKGROUND 0x22222200
 # define MENU_BACKGROUND 0x1E1E1EFF
@@ -115,58 +111,72 @@ typedef struct s_fdf
 	mlx_image_t		*image;
 }					t_fdf;
 
+// parsing
+// parsing_hex
+int					is_upper_hex_char(char c);
+int					hex_char_to_int(char c);
+unsigned int		hex_to_int(char *hex);
 // parse utils
 int					check_for_comma(char *line);
 int					get_size(char **array);
 int					get_rows(char *file);
-int					get_line_size(char *line);
+void				free_split(char **split);
 void				get_line_size_malloc(t_fdf *fdf, char *lines,
 						int row_count);
+// parsing.c
+void				initialize_fdf(t_fdf *fdf, char *line, int row);
+void				process_file_line(t_fdf *fdf, char *line, int row);
+t_fdf				*parse(char *filename, int i);
 
-// parse
+// parse2
 void				handle_comma_case(t_3d *fdf, char *split, int i, int row);
 void				handle_no_comma(t_3d *fdf, char *split, int i, int row);
 t_3d				*special_split(t_3d *fdf, char *line, int row);
-t_fdf				*parse(char *filename, int i);
 
+// error utils
+void				free_tab(void **tab, size_t len);
+void				free_projection(t_fdf *fdf);
+void				handle_error(const char *message);
+void				clean_exit(t_fdf *fdf, int row);
+void				free_fdf(t_fdf *fdf);
+
+// read
+char				**read_file_lines(char *filename, int *out_row);
+// render
 // render_utils
 int					calc_dot_dist_x(t_fdf *fdf);
 int					calc_dot_dist_y(t_fdf *fdf);
 void				draw_squares(t_fdf *fdf, int x, int y, int color);
 void				rotate_point(int *x, int *y, t_fdf *fdf);
 
-// render
+// render_utils2
+void				draw_connect(t_fdf *fdf, int i, int j, int color1);
 void				draw_dots(t_fdf *fdf, int dist_x, int dist_y);
+
+// render
 void				initialize_line(t_point p1, t_point p2, t_line *line);
 void				update_line(t_point *p1, t_line *line);
 void				draw_line(t_fdf *fdf, t_line_data line_data, int j, int i);
 int					render_map(t_fdf *fdf);
-void				precompute_projection(t_fdf *fdf);
-
-// void	draw_line(t_fdf *fdf, t_point p1, t_point p2, int color);
-
-// render2
+// isometric
 t_point				project_isometric(t_3d pt, t_fdf *fdf);
-
-// error
-void				clean_exit(t_fdf *fdf, int row);
-void				handle_error(const char *message);
-void				free_projection(t_fdf *fdf);
+// max_min
+int					ft_max(int a, int b);
+int					ft_min(int a, int b);
 
 // hooks
 void				ft_loop_hook(void *param);
 void				ft_hook_rotate(void *param);
-void				fdf_zoom(double xdelta, double ydelta, void *param);
+
+// rotate
 void				rotate_x(double *y, double *z, double alpha);
 void				rotate_y(double *x, double *z, double beta);
 void				rotate_z(double *x, double *y, double gamma);
+// main.c
+int					main(int argc, char *argv[]);
 
-void				ft_loop_hook(void *param);
-
-void				ft_init(t_fdf *fdf);
+int					ft_init(t_fdf *fdf, char *argv);
+void				clean_map(t_fdf *fdf);
 void				ft_hook(void *param);
-void				free_split(char **split);
-
-void				free_tab(void **tab, size_t len);
 
 #endif
