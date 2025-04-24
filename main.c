@@ -6,16 +6,11 @@
 /*   By: roalexan <roalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:01:32 by roalexan          #+#    #+#             */
-/*   Updated: 2025/04/24 14:44:13 by roalexan         ###   ########.fr       */
+/*   Updated: 2025/04/24 17:59:25 by roalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	leaks(void)
-{
-	system("leaks fdf");
-}
 
 int	ft_init(t_fdf *fdf, char *argv)
 {
@@ -73,7 +68,6 @@ int	main(int argc, char *argv[])
 	t_fdf	*fdf;
 	int		fd;
 
-	atexit(leaks);
 	if (argc != 2)
 		handle_error("Usage: ./fdf test_maps/...");
 	fd = open(argv[1], O_RDONLY);
